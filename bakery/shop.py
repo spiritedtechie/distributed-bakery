@@ -1,16 +1,20 @@
+from assistant import Assistant
+from baker import Baker
+from customer import Customer
 
-def main():
-    customer_queue = new Queue(CUSTOMER)
-    baker_queue = new Queue(BAKER)
-    shelve_queue = new Queue(SHELVE)
 
-    while True:
-        order = [next_id(), customer_queue.take_order()]
-        baker_queue.place_order(order)
-        if not shelve_queue.empty():
-            shelve_queue.take_order()
-        customer_queue.deliver_order()
+class Shop:
+    def __init__(self):
+        pass
 
-if __name__ == "__main__":
-    # execute only if run as a script
-    main()
+    def run(self):
+        baker = Baker()
+        assistant = Assistant(baker)
+        customer = Customer([])
+
+        while True:
+            assistant.handle_order(customer)
+
+
+if __name__ == '__main__':
+    Shop().run()
