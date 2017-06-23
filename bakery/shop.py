@@ -12,7 +12,7 @@ class Shop:
         assistant = Assistant(baker)
         customer = Customer(orders)
 
-        for i in range(len(orders)):
+        while len(orders) > 0:
             assistant.handle_order(customer)
 
 

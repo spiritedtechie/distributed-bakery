@@ -11,4 +11,5 @@ class Customer:
             return self.orders.pop(0)
 
     def receive_order(self, baked_goods):
-        print "I received %s" % (baked_goods,)
+        item, quantity = baked_goods
+        print "I received %s %s" % (quantity, item)
