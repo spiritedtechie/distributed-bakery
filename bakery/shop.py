@@ -7,12 +7,12 @@ class Shop:
     def __init__(self):
         pass
 
-    def run(self):
+    def run(self, orders):
         baker = Baker()
         assistant = Assistant(baker)
-        customer = Customer([])
+        customer = Customer(orders)
 
-        while True:
+        for i in range(len(orders)):
             assistant.handle_order(customer)
 
 

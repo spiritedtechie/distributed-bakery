@@ -3,5 +3,5 @@ class Baker:
         pass
 
     def listen_for(self, order):
-        return "Brownies", 3
+        return order
 
