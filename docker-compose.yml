@@ -1,0 +1,12 @@
+version: "3.3"
+
+services:
+  baker:
+    build: ./baker
+    ports:
+      - "5000:5000"
+
+  hungry_person:
+    build: ./hungry_person
+    ports:
+      - "6000:5000"
