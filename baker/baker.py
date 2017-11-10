@@ -6,11 +6,21 @@ app = Flask(__name__)
 app.chance_of_hearing = random.random
 BAKER_NAME = 'Barry'
 
-@app.route('/v1/', methods=['POST'])
+
+@app.route('/v1/order', methods=['POST'])
 def drunk_baker_listen_for_order():
-    if app.chance_of_hearing() > 0.5:
-        order = request.get_json()
-        order['madeBy'] = BAKER_NAME
-        return jsonify(order)
+    if baker_hears_the_order():
+        return prepare_the_order(request.get_json())
     else:
-        time.sleep(1000)
+        baker_is_drunnkjdfdk()
+
+
+def baker_hears_the_order():
+    return app.chance_of_hearing() > 0.5
+
+def prepare_the_order(order):
+    order['madeBy'] = BAKER_NAME
+    return jsonify(order)
+
+def baker_is_drunnkjdfdk():
+    time.sleep(1000)
