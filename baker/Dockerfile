@@ -1,5 +1,19 @@
-FROM python:3.6-stretch
-ADD . /code
+FROM java:8
+
+# Install maven
+RUN apt-get update
+RUN apt-get install -y maven
+
 WORKDIR /code
-RUN pip install -r requirements.txt
-CMD ["python","-m","sanic","baker.app","--host=0.0.0.0","--port=5000","--workers=40"]
+
+# Prepare by downloading dependencies
+ADD pom.xml /code/pom.xml
+RUN ["mvn", "dependency:resolve"]
+RUN ["mvn", "verify"]
+
+# Adding source, compile and package into a fat jar
+ADD src /code/src
+RUN ["mvn", "package", "-DskipTests"]
+
+EXPOSE 4567
+CMD ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/baker-jar-with-dependencies.jar"]
