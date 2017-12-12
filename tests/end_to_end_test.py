@@ -1,6 +1,6 @@
 import requests
 
-HUNGRY_PERSON_ENDPOINT = 'http://localhost:6000/v1/order'
+HUNGRY_PERSON_ENDPOINT = 'http://localhost:5000/v1/order'
 
 
 def test_hungry_person_will_always_receive_a_cake():

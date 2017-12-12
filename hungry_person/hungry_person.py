@@ -2,7 +2,7 @@ from flask import Flask, request
 import requests
 app = Flask(__name__)
 
-BAKER_ENDPOINT = 'http://baker:5000/v1/order'
+BAKER_ENDPOINT = 'http://baker:4567/v1/order'
 
 @app.route('/v1/order', methods=['POST'])
 def make_an_order():
