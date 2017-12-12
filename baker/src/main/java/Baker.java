@@ -1,3 +1,5 @@
+import okhttp3.OkHttpClient;
+import okhttp3.RequestBody;
 import org.json.JSONObject;
 import spark.Request;
 import spark.Response;
@@ -34,18 +36,43 @@ public class Baker {
     }
 
     public Object placeOrder(Request req, Response res) {
-        if (drunkenness.chanceOfHearing() > 0.5) {
-            return prepareTheOrder(req);
-        } else {
+        if (drunkenness.chanceOfHearing() < 0.25) {
             sleepForever();
             return null;
         }
+        else if (drunkenness.chanceOfHearing() >= 0.25 && drunkenness.chanceOfHearing() < 0.5) {
+            return "OK";
+        }
+        else if (drunkenness.chanceOfHearing() >= 0.5 && drunkenness.chanceOfHearing() < 0.75) {
+            prepareTheOrder(req);
+            sleepForever();
+            return null;
+        } else {
+            prepareTheOrder(req);
+            return "OK";
+        }
     }
 
-    private Object prepareTheOrder(Request req) {
-        JSONObject json = new JSONObject(req.body());
-        json.put("madeBy", "Barry");
-        return json;
+    private void prepareTheOrder(Request req) {
+        JSONObject order = new JSONObject(req.body());
+        order.put("madeBy", "Barry");
+
+        OkHttpClient httpClient = new OkHttpClient();
+        RequestBody body = RequestBody.create(
+                okhttp3.MediaType.parse("application/json"),
+                order.toString()
+        );
+
+        okhttp3.Request bakerRequest = new okhttp3.Request.Builder()
+                .url("http://shop_floor:5000/v1/receive-order-from-baker")
+                .post(body)
+                .build();
+
+        try {
+            httpClient.newCall(bakerRequest).execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void sleepForever() {

@@ -6,7 +6,7 @@ services:
     ports:
       - "4567:4567"
 
-  hungry_person:
-    build: ./hungry_person
+  shop_floor:
+    build: ./shop-floor
     ports:
       - "5000:5000"

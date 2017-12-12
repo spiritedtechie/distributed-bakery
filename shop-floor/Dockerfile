@@ -16,4 +16,4 @@ ADD src /code/src
 RUN ["mvn", "package", "-DskipTests"]
 
 EXPOSE 5000
-CMD ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/hungry_person-jar-with-dependencies.jar"]
+CMD ["/usr/lib/jvm/java-8-openjdk-amd64/bin/java", "-jar", "target/shop-floor-jar-with-dependencies.jar"]

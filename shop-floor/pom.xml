@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>co.unruly</groupId>
-    <artifactId>hungry-person</artifactId>
+    <artifactId>shop</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -66,11 +66,11 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
-                    <finalName>hungry_person</finalName>
+                    <finalName>shop-floor</finalName>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>HungryPerson</mainClass>
+                            <mainClass>ShopFloor</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>
@@ -86,13 +86,13 @@
                         </goals>
                         <phase>package</phase>
                         <configuration>
-                            <finalName>hungry_person</finalName>
+                            <finalName>shop-floor</finalName>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
                             <archive>
                                 <manifest>
-                                    <mainClass>HungryPerson</mainClass>
+                                    <mainClass>ShopFloor</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>
