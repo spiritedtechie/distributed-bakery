@@ -31,9 +31,7 @@ public class Baker {
         while (serverIsRunning()) {
             try {
                 Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            } catch (InterruptedException ignore) {}
         }
     }
 
@@ -55,9 +53,7 @@ public class Baker {
     private void sleepForever() {
         try {
             Thread.sleep(1_000_000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        } catch (InterruptedException ignore) {}
     }
 
     private boolean serverIsRunning() {

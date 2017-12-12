@@ -37,7 +37,7 @@ public class BakerTest {
         baker = new Baker(this::neverHears);
         baker.start();
 
-        Thread myThread = new Thread(() -> {
+        Thread requestThread = new Thread(() -> {
             try {
                 placeOrderWithBaker();
             } catch (IOException e) {
@@ -45,11 +45,11 @@ public class BakerTest {
             }
         });
 
-        myThread.start();
+        requestThread.start();
 
         Thread.sleep(2000);
 
-        assertThat(myThread.isAlive(), is(true));
+        assertThat(requestThread.isAlive(), is(true));
     }
 
     private Response placeOrderWithBaker() throws IOException {
