@@ -23,16 +23,14 @@ public class Baker {
 
     public void start() {
         post("/v1/order", this::placeOrder);
+
+        waitForServerToStart();
     }
 
     public void stop() {
         Spark.stop();
 
-        while (serverIsRunning()) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException ignore) {}
-        }
+        waitForServerToStop();
     }
 
     public Object placeOrder(Request req, Response res) {
@@ -62,6 +60,22 @@ public class Baker {
             return false;
         } catch (IOException serverWasRunning) {
             return true;
+        }
+    }
+
+    private void waitForServerToStart() {
+        while (!serverIsRunning()) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ignore) {}
+        }
+    }
+
+    private void waitForServerToStop() {
+        while (serverIsRunning()) {
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException ignore) {}
         }
     }
 
