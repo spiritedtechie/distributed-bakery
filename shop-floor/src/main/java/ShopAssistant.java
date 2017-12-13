@@ -1,8 +1,10 @@
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 class ShopAssistant {
 
@@ -15,7 +17,10 @@ class ShopAssistant {
     // THIS NEEDS TO HANDLE DEALING WITH THE DRUNK BAKER AND HIS LACK OF ATTENTION
     String iWant(String order) throws IOException {
         new Thread(() -> {
-            OkHttpClient httpClient = new OkHttpClient();
+            OkHttpClient httpClient = new OkHttpClient.Builder()
+                    .readTimeout(1, TimeUnit.SECONDS)
+                    .connectTimeout(1, TimeUnit.SECONDS).build();
+
             RequestBody body = RequestBody.create(
                     okhttp3.MediaType.parse("application/json"),
                     order
@@ -27,9 +32,15 @@ class ShopAssistant {
                     .build();
 
             try {
-                httpClient.newCall(bakerRequest).execute();
+                Response response = httpClient.newCall(bakerRequest).execute();
+
+                while (!"OK".equals(response.body().string())) {
+                    response = httpClient.newCall(bakerRequest).execute();
+                }
+
+                System.out.println("Received OK from Baker! for order: " + order);
+
             } catch (IOException e) {
-                e.printStackTrace();
             }
         }).start();
 
