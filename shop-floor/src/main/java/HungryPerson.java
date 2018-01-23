@@ -4,21 +4,21 @@ import spark.Response;
 
 import java.util.concurrent.BlockingQueue;
 
-public class HungryPerson {
+class HungryPerson {
 
     private final BlockingQueue<String> queue;
     private final ShopAssistant shopAssistant;
 
-    public HungryPerson(BlockingQueue<String> queue, ShopAssistant shopAssistant) {
+    HungryPerson(BlockingQueue<String> queue, ShopAssistant shopAssistant) {
         this.queue = queue;
         this.shopAssistant = shopAssistant;
     }
 
-    public String makeAnOrder(spark.Request req, Response res) throws Exception {
+    String makeAnOrder(spark.Request req, Response res) throws Exception {
         return shopAssistant.iWant(req.body());
     }
 
-    public String showMeWhatYouGot(Request request, Response response) throws Exception {
+    String showMeWhatYouGot(Request request, Response response) throws Exception {
         StringBuilder stringBuilder = new StringBuilder();
 
         while (!queue.isEmpty()) {

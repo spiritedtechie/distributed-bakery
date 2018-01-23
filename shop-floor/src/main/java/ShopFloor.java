@@ -5,7 +5,7 @@ import static spark.Spark.*;
 
 public class ShopFloor {
 
-    public static final String BAKER_ENDPOINT = "http://baker:4567/v1/order";
+    static final String BAKER_ENDPOINT = "http://baker:4567/v1/order";
 
     private final HungryPerson hungryPerson;
     private final ShopAssistant shopAssistant;
@@ -23,7 +23,7 @@ public class ShopFloor {
         this.shopAssistant = shopAssistant;
     }
 
-    public void start() {
+    private void start() {
         port(5000);
         post("/v1/order", hungryPerson::makeAnOrder);
         get("/v1/show-me-what-you-got", hungryPerson::showMeWhatYouGot);

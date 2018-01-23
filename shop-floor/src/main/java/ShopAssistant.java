@@ -4,16 +4,16 @@ import okhttp3.RequestBody;
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 
-public class ShopAssistant {
+class ShopAssistant {
 
     private final BlockingQueue<String> queue;
 
-    public ShopAssistant(BlockingQueue<String> queue) {
+    ShopAssistant(BlockingQueue<String> queue) {
         this.queue = queue;
     }
 
     // THIS NEEDS TO HANDLE DEALING WITH THE DRUNK BAKER AND HIS LACK OF ATTENTION
-    public String iWant(String order) throws IOException {
+    String iWant(String order) throws IOException {
         new Thread(() -> {
             OkHttpClient httpClient = new OkHttpClient();
             RequestBody body = RequestBody.create(
@@ -37,8 +37,7 @@ public class ShopAssistant {
     }
 
     // THIS NEEDS TO HANDLE DUPLICATE OR MISSING ORDERS FROM THE BAKER
-    public Object receiveOrderFromBaker(spark.Request request, spark.Response response) throws Exception {
-
+    Object receiveOrderFromBaker(spark.Request request, spark.Response response) throws Exception {
         queue.put(request.body());
 
         return "OK";
